@@ -1,0 +1,292 @@
+:root {
+    --primary: #002a45;
+    --primary-darker: #001a2c; 
+    --primary-darkest: #000f1a;
+    --accent: #003f66;
+    --light: #ebf4ff;
+    --gray: #f5f5f5;
+    --white: #ffffff;
+    --overlay: rgba(0, 0, 0, 0.4);
+    --font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: var(--gray);
+}
+
+/* navbar*/
+nav {
+    background: var(--primary-darkest);
+    padding: 0; 
+    max-height: fit-content;
+    width: 100%;
+    position: sticky; 
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 10px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logoss img {
+    height: 50px; 
+    width: auto;
+    display: block;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px; 
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: opacity 0.3s;
+    
+}
+
+nav a:hover {
+    opacity: 0.8;
+}
+
+/* Responsif  */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    nav ul {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .logoss img {
+        height: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    nav ul {
+        gap: 15px;
+    }
+    
+    nav a {
+        font-size: 14px;
+    }
+}
+
+/* PAGE */
+.page {
+    padding: 120px 20px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    text-align: center;
+}
+
+/* animasi email */
+
+.letter-image {
+    position: relative;
+    width: 240px;
+    height: 180px;
+    margin: 50px auto 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.animated-mail {
+    position: relative;
+    width: 220px; 
+    height: 120px;
+    transition: 0.4s;
+    transform-origin: center;
+}
+
+
+.body {
+    position: absolute;
+    bottom: 0;
+    left: 0; 
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 120px 220px; 
+    border-color: transparent transparent var(--primary) transparent;
+    z-index: 2;
+}
+
+
+.top-fold {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 60px 110px 0 110px;
+    border-color: var(--accent) transparent transparent transparent;
+    transform-origin: top;
+    transition: 0.4s;
+    z-index: 4;
+}
+
+
+.left-fold {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 60px 0 60px 110px; 
+    border-color: transparent transparent transparent var(--accent);
+    z-index: 3;
+}
+
+
+.back-fold {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 120px;
+    background: var(--primary);
+    z-index: 3;
+}
+
+
+.letter {
+    position: absolute;
+    left: 30px;
+    bottom: 3px; 
+    width: 160px;
+    height: 70px;
+    background: white;
+    z-index: 5;
+    overflow: hidden;
+    transition: 0.4s;
+    text-align: center;
+    padding: 12px 10px;
+    box-sizing: border-box;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.letter-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 0 0 5px 0;
+    opacity: 0;
+    transition: 0.3s;
+    width: 100%;
+}
+
+.letter-context {
+    font-size: 11px;
+    color: #555;
+    margin: 0;
+    opacity: 0;
+    transition: 0.3s;
+    width: 100%;
+    line-height: 1.4;
+}
+
+/* HOVER EFFECT */
+.letter-image:hover .animated-mail {
+    transform: translateY(25px);
+}
+
+.letter-image:hover .top-fold {
+    transform: rotateX(180deg);
+    z-index: 2;
+}
+
+.letter-image:hover .letter {
+    height: 180px;
+    bottom: 0;
+    box-shadow: 0 -8px 20px rgba(0,0,0,0.2);
+    border-radius: 8px 8px 0 0;
+}
+
+.letter-image:hover .letter-title,
+.letter-image:hover .letter-context {
+    opacity: 1;
+}
+
+
+
+/* Responsif untuk layar kecil */
+@media (max-width: 480px) {
+    .letter-image {
+        width: 200px;
+        height: 150px;
+        transform: scale(0.9);
+    }
+}
+/* ========================= */
+/* CARD */
+/* ========================= */
+
+.form-card {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    margin-top: 50px;
+}
+
+.qr-section {
+    margin-top: 20px;
+}
+
+.qr-section img {
+    width: 200px;
+}
+
+/* FOOTER */
+footer {
+    background: #001b2d;
+    color: white;
+    text-align: center;
+    padding: 25px 0;
+    margin-top: 80px;
+}

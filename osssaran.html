@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OSS67 - Kritik & Saran</title>
+<style>
+    /* ROOT VARIABLES */
+    :root {
+        --primary: #002a45;
+        --primary-darker: #001a2c;
+        --primary-darkest: #000f1a;
+        --accent: #003f66;
+        --accent-light: #005588;
+        --light: #ebf4ff;
+        --white: #ffffff;
+        --overlay: rgba(0, 0, 0, 0.4);
+    }
+
+    /* RESET */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+   /* gradasi background */
+    body {
+        background: linear-gradient(135deg, var(--primary-darker) 0%, var(--primary-darkest) 50%, var(--accent) 100%);
+        min-height: 100vh;
+        position: relative;
+    }
+
+    /* OVERLAY UNTUK EFEK GELAP */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* Pastikan konten di atas overlay */
+    nav, section, footer {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* NAVBAR */
+    nav {
+        background: var(--primary-darkest);
+        color: var(--light);
+        padding: 10px 20px;
+        position: relative;
+        z-index: 10;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-container {
+        max-width: 1300px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logoss img {
+        height: 50px;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+
+    nav ul {
+        display: flex;
+        list-style: none;
+        gap: 25px;
+    }
+
+    nav a {
+        color: var(--light);
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s ease;
+        position: relative;
+        padding: 5px 0;
+    }
+
+    nav a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+      
+    }
+
+    nav a:hover {
+        opacity: 0.7;
+    }
+
+    nav a:hover::after {
+        width: 100%;
+    }
+
+    /* PAGE CONTENT */
+    .page {
+        padding: 60px 0;
+        min-height: calc(100vh - 200px);
+        position: relative;
+        z-index: 2;
+    }
+
+    .container {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0 20px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 48px;
+        color: var(--white);
+        margin-bottom: 15px;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        position: relative;
+        display: inline-block;
+    }
+
+    h1::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 25%;
+        width: 50%;
+        height: 3px;
+        background: var(--white);
+        border-radius: 3px;
+    }
+
+    .page > .container > p {
+        font-size: 18px;
+        color: var(--white);
+        margin-bottom: 50px;
+        opacity: 0.9;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    /* LINK / ANIMATED MAIL */
+    .letter-image {
+        text-decoration: none;
+        display: inline-block;
+        margin: 30px auto;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .letter-image:hover {
+        transform: scale(1.05);
+    }
+
+    .animated-mail {
+        position: relative;
+        width: 200px;
+        height: 150px;
+        margin: 0 auto 20px;
+        transition: all 0.3s ease;
+    }
+
+    .body {
+        position: absolute;
+        bottom: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 0 100px 200px;
+        border-color: transparent transparent var(--accent) transparent;
+        z-index: 2;
+    }
+
+    .top-fold {
+        position: absolute;
+        top: 50px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 50px 100px 0 100px;
+        border-color: var(--primary) transparent transparent transparent;
+        z-index: 2;
+    }
+
+    .back-fold {
+        position: absolute;
+        bottom: 0;
+        width: 200px;
+        height: 100px;
+        background: var(--primary);
+        z-index: 0;
+    }
+
+    .left-fold {
+        position: absolute;
+        bottom: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 50px 0 50px 100px;
+        border-color: transparent transparent transparent var(--primary-darker);
+        z-index: 2;
+    }
+
+    .letter {
+        position: absolute;
+        left: 20px;
+        bottom: 0;
+        width: 160px;
+        height: 100px;
+        background: white;
+        z-index: 1;
+        border-radius: 5px 5px 0 0;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+    }
+
+    .animated-mail:hover .letter {
+        transform: translateY(-30px);
+        height: 130px;
+    }
+
+    .letter-title {
+        font-weight: bold;
+        color: var(--primary);
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    
+    .letter-stamp {
+        margin-top: 8px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .letter-stamp-inner {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: var(--light);
+    }
+
+    .shadow {
+        width: 200px;
+        height: 20px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 50%;
+        margin: 10px auto 0;
+        filter: blur(4px);
+        transition: all 0.3s ease;
+    }
+
+    .letter-image:hover .shadow {
+        width: 220px;
+        filter: blur(6px);
+    }
+
+    /* FORM CARD / QR SECTION */
+    .form-card {
+        margin-top: 60px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .qr-section {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 40px 60px;
+        border-radius: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        display: inline-block;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .qr-section:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .qr-section p {
+        font-size: 18px;
+        margin-bottom: 25px;
+        color: var(--primary);
+        font-weight: 600;
+    }
+
+    .qr-section img {
+        width: 200px;
+        height: 200px;
+        border-radius: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+    }
+
+    .qr-section img:hover {
+        transform: scale(1.05);
+    }
+
+    /* FOOTER */
+    footer {
+        text-align: center;
+        padding: 30px 0;
+        background: var(--primary-darkest);
+        color: white;
+        font-size: 14px;
+        position: relative;
+        z-index: 10;
+        border-top: 1px solid var(--accent-light);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 36px;
+        }
+        
+        .qr-section {
+            padding: 30px 20px;
+        }
+        
+        .qr-section img {
+            width: 150px;
+            height: 150px;
+        }
+        
+        .nav-container {
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        nav ul {
+            gap: 15px;
+        }
+    }
+
+    /* SCROLL ANIMATION (opsional, bisa ditambahkan) */
+    .fade-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-scroll.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="nav-container">
+        <div class="logoss">
+            <img src="LOGO OSS67.png" alt="Logo OSS67">
+        </div>
+
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="ossabout.html">About</a></li>
+            <li><a href="osssaran.html">Kritik & Saran</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- CONTENT -->
+<section class="page">
+    <div class="container">
+         
+        <h1 class="fade-scroll">Kritik & Saran</h1>
+        <p class="fade-scroll">silahkan sampaikan kritik dan saran</p>
+
+        <!-- LINK KE GOOGLE FORM -->
+       <a href="https://sites.google.com/view/kotaksaranosis/halaman-muka" 
+   target="_blank" 
+   class="letter-image fade-scroll" 
+   onclick="openMail(event)">
+            <div class="animated-mail">
+                <div class="back-fold"></div>
+                <div class="letter">
+                    <div class="letter-title">
+                        Isi Kritik & Saran
+                    </div>
+                   
+                    <div class="letter-stamp">
+                        <div class="letter-stamp-inner"></div>
+                    </div>
+                </div>
+                <div class="top-fold"></div>
+                <div class="body"></div>
+                <div class="left-fold"></div>
+            </div>
+            <div class="shadow"></div>
+        </a>
+
+        <!-- QR -->
+        <div class="form-card fade-scroll">
+            <div class="qr-section">
+                <p>Atau scan QR Code berikut:</p>
+                <img src="QR SARAN OSIS.svg" alt="QR Code Google Form">
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="fade-scroll">
+    OSS67 © 2026/2027
+</footer>
+
+<!-- SCROLL ANIMATION SCRIPT (opsional) -->
+<script>
+    // Function to check if element is in viewport
+    function isElementInViewport(el) {
+        var rect = el.getBoundingClientRect();
+        var windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        return (rect.top <= windowHeight - 100 && rect.bottom >= 0);
+    }
+
+    // Function to handle scroll animation
+    function handleScrollAnimation() {
+        var elements = document.querySelectorAll('.fade-scroll');
+        for (var i = 0; i < elements.length; i++) {
+            if (isElementInViewport(elements[i])) {
+                elements[i].classList.add('visible');
+            }
+        }
+    }
+
+    // Run on initial load
+    document.addEventListener('DOMContentLoaded', function() {
+        handleScrollAnimation();
+    });
+
+    // Run on scroll
+    window.addEventListener('scroll', function() {
+        handleScrollAnimation();
+    });
+</script>
+
+</body>
+</html>

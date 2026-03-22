@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSS67 - About</title>
+    <link rel="stylesheet" href="ossabout.css">
+    <style>
+        :root {
+            --primary: #002a45;
+            --primary-darker: #001a2c; 
+            --primary-darkest: #000f1a;
+            --accent: #003f66;
+            --light: #ebf4ff;
+            --gray: #f5f5f5;
+            --white: #ffffff;
+            --overlay: rgba(0, 0, 0, 0.4);
+            --font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+        }
+
+        /* BACKGROUND DENGAN FOTO DAN OPACITY */
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+            background-color: var(--primary-darker);
+        }
+
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("osss.jpeg"); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            opacity: 0.3; 
+            z-index: -2;
+        }
+
+        
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        /* MEMASTIKAN KONTUT UTAMA TETAP TERBACA */
+        nav, .page, footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            animation: modalPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-content img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+        }
+
+        .modal-content h3 {
+            color: var(--primary);
+            margin-bottom: 5px;
+            font-size: 22px;
+        }
+
+        .modal-content .jabatan {
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .modal-content .bio {
+            color: gray;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: left;
+            font-size: 14px;
+            line-height: 1.6;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 40px;
+            height: 40px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 10000;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+            background: #c0392b;
+        }
+
+        @keyframes modalPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) translateY(-100px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .box {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(2px);
+        }
+
+        .box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-color: var(--accent);
+            
+        }
+
+        .box:active {
+            transform: scale(0.98);
+        }
+
+        .fade-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
+
+        /* MEMPERJELAS TEKS DI ATAS BACKGROUND */
+        h1, h2, p, .desc, .org-title, footer {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .desc, .org-title {
+            color: white;
+        }
+
+        footer {
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* STYLE UNTUK CONTAINER AGAR LEBIH TERBACA */
+        .container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px auto;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+            
+            .modal-content img {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .close-btn {
+                top: -10px;
+                right: -10px;
+                width: 35px;
+                height: 35px;
+                font-size: 20px;
+            }
+
+            .container {
+                padding: 15px;
+                margin: 10px;
+            }
+        }
+
+        /* PETUNJUK KLIK - TAMBAHAN */
+        .click-instruction {
+            text-align: center;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background: rgba(0, 42, 69, 0.8);
+            backdrop-filter: blur(5px);
+            border-radius: 50px;
+            display: inline-block;
+            width: auto;
+            color: white;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .instruction-wrapper {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR  -->
+    <nav>
+        <div class="nav-container">
+            
+            <div class="logoss">
+                <img src="LOGO OSS67.png" alt="Logo OSS67">
+            </div>
+
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="ossabout.html">About</a></li>
+                <li><a href="osssaran.html">Kritik & Saran</a></li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <!-- PAGE CONTENT -->
+    <section class="page">
+        <div class="container">
+
+            <h1 class="fade-scroll">About Us</h1>
+            <p class="desc fade-scroll delay-1">
+                Struktur kepengurusan Organisasi Siswa Intra Sekolah (OSIS) SMK Kesehatan Bhakti Wiyata dan 
+                SMK TI Pelita Nusantara periode 2026/2027 merupakan susunan resmi yang dirancang 
+                untuk mendukung pelaksanaan program kerja organisasi selama satu periode kepengurusan.
+            </p>
+
+            <h2 class="org-title fade-scroll delay-2">Struktur Kepengurusan OSIS</h2>
+
+          
+
+            <div class="org-chart">
+
+                <!-- Pembina -->
+                <div class="level fade-scroll delay-1">
+                    <div class="box top" onclick="showModal('pembina')" title="Klik untuk melihat foto & profil">Pembina <br>Hasta Prima Airlangga S.Pd</div>
+                </div>
+
+                <!-- Ketua -->
+                <div class="level fade-scroll delay-2">
+                    <div class="box top" onclick="showModal('ketua')" title="Klik untuk melihat foto & profil">Ketua Umum <br> Talita Ftria P.H</div>
+                </div>
+
+                <!-- Wakil -->
+                <div class="level fade-scroll delay-3">
+                    <div class="box top" onclick="showModal('wakil')" title="Klik untuk melihat foto & profil">Wakil Ketua <br> Dafian Aliy M.</div>
+                </div>
+
+                <!-- Sekretaris & Bendahara -->
+                <div class="level horizontal fade-scroll delay-4">
+                    <div class="box main" onclick="showModal('sekretaris1')" title="Klik untuk melihat foto & profil">Sekretaris 1 <br>Himma Alya Fidien</div>
+                    <div class="box main" onclick="showModal('sekretaris2')" title="Klik untuk melihat foto & profil">Sekretaris 2 <br> Putri Rosa Jania H.</div>
+                    <div class="box main" onclick="showModal('bendahara1')" title="Klik untuk melihat foto & profil">Bendahara 1 <br>Alifia Zafira Putri</div>
+                    <div class="box main" onclick="showModal('bendahara2')" title="Klik untuk melihat foto & profil">Bendahara 2 <br> Aurel Anggun M.</div>
+                </div>
+
+                <!-- Sekbid -->
+                <div class="level horizontal">
+
+                    <!-- Sekbid 1 -->
+                    <div class="branch fade-scroll delay-1">
+                        <div class="box main" onclick="showModal('sekbid1')" title="Klik untuk melihat foto & profil">Sekbid 1 - Keagamaan</div>
+                        <div class="sub">
+                            <div class="box fade-scroll delay-2" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Rachel Septivia M (CO)</div>
+                            <div class="box fade-scroll delay-3" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Khansa Rania P.A</div>
+                            <div class="box fade-scroll delay-4" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">M. Fakhrullah Alawi</div>
+                            <div class="box fade-scroll delay-5" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Happy Ester Melisa</div>
+                        </div>
+                    </div>
+
+                    <!-- Sekbid 2 -->
+                    <div class="branch fade-scroll delay-1">
+                        <div class="box main" onclick="showModal('sekbid2')" title="Klik untuk melihat foto & profil">Sekbid 2 - Tata tertib</div>
+                        <div class="sub">
+                            <div class="box fade-scroll delay-2" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Intaninda Pratiwi (CO)</div>
+                            <div class="box fade-scroll delay-3" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Denata Putri Kusuma</div>
+                            <div class="box fade-scroll delay-4" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Novia Aurel Hafidzah</div>
+                        </div>
+                    </div>
+
+                    <!-- Sekbid 3 -->
+                    <div class="branch fade-scroll delay-2">
+                        <div class="box main" onclick="showModal('sekbid3')" title="Klik untuk melihat foto & profil">Sekbid 3 - Kepemimpinan</div>
+                        <div class="sub">
+                            <div class="box fade-scroll delay-3" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Humaira Adeni (CO)</div>
+                            <div class="box fade-scroll delay-4" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Keyfa Yasya'illah</div>
+                            <div class="box fade-scroll delay-5" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Amelia Galuh K.</div>
+                            <div class="box fade-scroll delay-1" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Suryo Anggoro P.</div>
+                        </div>
+                    </div>
+
+                    <!-- Sekbid 4 -->
+                    <div class="branch fade-scroll delay-2">
+                        <div class="box main" onclick="showModal('sekbid4')" title="Klik untuk melihat foto & profil">Sekbid 4 - Olahraga</div>
+                        <div class="sub">
+                            <div class="box fade-scroll delay-3" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Alvin Danendra P. (CO)</div>
+                            <div class="box fade-scroll delay-4" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Adila Likay Tanjuwa</div>
+                            <div class="box fade-scroll delay-5" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Ezar Wibi Bahtiar</div>
+                        </div>
+                    </div>
+
+                    <!-- Sekbid 5 -->
+                    <div class="branch fade-scroll delay-3">
+                        <div class="box main" onclick="showModal('sekbid5')" title="Klik untuk melihat foto & profil">Sekbid 5 - Teknologi & Informasi</div>
+                        <div class="sub">
+                            <div class="box fade-scroll delay-4" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Maharani Ardi T. (CO)</div>
+                            <div class="box fade-scroll delay-5" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Fasterino Rafael</div>
+                            <div class="box fade-scroll delay-1" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Queen Nathania H.</div>
+                            <div class="box fade-scroll delay-2" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">M. Ilham H.</div>
+                        </div>
+                    </div>
+
+                    <!-- Sekbid 6 -->
+                    <div class="branch fade-scroll delay-3">
+                        <div class="box main" onclick="showModal('sekbid6')" title="Klik untuk melihat foto & profil">Sekbid 6 - Kebudayaan</div>
+                        <div class="sub">
+                            <div class="box fade-scroll delay-4" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Elva Candraningtyas (CO)</div>
+                            <div class="box fade-scroll delay-5" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Nayra Azzahra Ferizka P.</div>
+                            <div class="box fade-scroll delay-1" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Theresia Cordelia Lucita</div>
+                        </div>
+                    </div>
+
+                    <!-- Sekbid 7 -->
+                    <div class="branch fade-scroll delay-4">
+                        <div class="box main" onclick="showModal('sekbid7')" title="Klik untuk melihat foto & profil">Sekbid 7 - Kewirausahaan</div>
+                        <div class="sub">
+                            <div class="box fade-scroll delay-5" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Riskyana Putri (CO)</div>
+                            <div class="box fade-scroll delay-1" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Aurelia Thalita Izza S.</div>
+                            <div class="box fade-scroll delay-2" title="Klik untuk melihat detail (foto belum tersedia)" onclick="alert('Foto anggota sedang dalam persiapan')">Hafidz Rifqi P.A</div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="fade-scroll">
+        OSS67 © 2026/2027
+    </footer>
+
+    <!-- MODAL FOTO (SATU UNTUK SEMUA) -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+        <div class="modal-content" id="modalContent">
+            <span class="close-btn" onclick="closeModal(event)">&times;</span>
+            <img id="modalImage" src="" alt="Foto">
+            <h3 id="modalTitle"></h3>
+            <div class="jabatan" id="modalJabatan"></div>
+            <div class="bio" id="modalBio"></div>
+        </div>
+    </div>
+
+    <script>
+        // Data anggota lengkap
+        const members = {
+            pembina: {
+                img: "https://via.placeholder.com/180x180/2c3e50/ffffff?text=Pembina",
+                nama: "Hasta Prima Airlangga S.Pd",
+                jabatan: "Pembina OSIS",
+                bio: "• Guru pembina OSIS\n• Mapel: Bahasa Indonesia\n• Pengalaman: 10 tahun mengajar\n• Motto: Mendidik dengan hati"
+            },
+            ketua: {
+                img: "https://via.placeholder.com/180x180/3498db/ffffff?text=Ketua",
+                nama: "Thalita Fitria P.H",
+                jabatan: "Ketua Umum OSIS",
+                bio: "• Kelas: XI-B Farmasi \n•"
+            },
+            wakil: {
+                img: "https://via.placeholder.com/180x180/3498db/ffffff?text=Wakil",
+                nama: "Dafian Aliy M.",
+                jabatan: "Wakil Ketua OSIS",
+                bio: "• Kelas: X-Desain Komunikasi Visual\n•"
+            },
+            sekretaris1: {
+                img: "https://via.placeholder.com/180x180/3498db/ffffff?text=Sekretaris",
+                nama: "Himma Alya Fidien",
+                jabatan: "Sekretaris 1",
+                bio: "• Kelas: XI-A Farmasi \n•"
+            },
+            sekretaris2: {
+                img: "https://via.placeholder.com/180x180/3498db/ffffff?text=Sekretaris",
+                nama: "Putri Rosa Jania H.",
+                jabatan: "Sekretaris 2",
+                bio: "• Kelas: X-Teknik Laboratorium Medik\n•"
+            },
+            bendahara1: {
+                img: "https://via.placeholder.com/180x180/3498db/ffffff?text=Bendahara",
+                nama: "Alifia Zafira Putri",
+                jabatan: "Bendahara 1",
+                bio: "• Kelas: XI-B Farmasi \n•"
+            },
+            bendahara2: {
+                img: "https://via.placeholder.com/180x180/3498db/ffffff?text=Bendahara",
+                nama: "Aurel Anggun M.",
+                jabatan: "Bendahara 2",
+                bio: "• Kelas: X-A Farmasi \n•"
+            },
+            sekbid1: {
+                img: "https://via.placeholder.com/180x180/e74c3c/ffffff?text=Sekbid+1",
+                nama: "Sekbid 1 - Keagamaan",
+                jabatan: "Seksi Bidang Keagamaan",
+                bio: "• Rachel Septivia M (CO) - XI-Layanan Kesehatan\n• Khansa Rania P.A - XI-Teknik Laboratorium Medik\n• M. Fakhrullah Alawi - X-A Farmasi\n• Happy Ester Melisa - X-A Farmasi\n"
+            },
+            sekbid2: {
+                img: "sekbid2.jpeg",
+                nama: "Sekbid 2 - Tata Tertib",
+                jabatan: "Seksi Bidang Tata Tertib",
+                bio: "• Intaninda Pratiwi (CO) - XI-Layanan Kesehatan\n• Denata Putri Kusuma - X-Manajemen Perkantoran dan Layanan Bisnis\n• Novia Aurel Hafidzah - X-Manajemen Perkantoran dan Layanan Bisnis\n"
+            },
+            sekbid3: {
+                img: "sekbid 3.jpeg",
+                nama: "Sekbid 3 - Kepemimpinan",
+                jabatan: "Seksi Bidang Kepemimpinan",
+                bio: "• Humaira Adeni (CO) - XI-B Farmasi\n• Keyfa Yasya'illah - XI-B Farmasi\n• Amelia Galuh K. - X-Teknik Laboratorium Medik\n• Suryo Anggoro P. - X-Rekayasa Perangkat Lunak\n"
+            },
+            sekbid4: {
+                img: "sekbid4.jpeg",
+                nama: "Sekbid 4 - Olahraga",
+                jabatan: "Seksi Bidang Olahraga",
+                bio: "• Alvin Danendra P. (CO) - XI-Manajemen Perkantoran dan Layanan Bisnis\n• Adila Likay Tanjuwa - X-Layanan Kesehatan\n• Ezar Wibi Bahtiar - X-Rekayasa Perangkat Lunak\n"
+            },
+            sekbid5: {
+                img: "https://via.placeholder.com/180x180/e74c3c/ffffff?text=Sekbid+5",
+                nama: "Sekbid 5 - Teknologi & Informasi",
+                jabatan: "Seksi Bidang Teknologi & Informasi",
+                bio: "• Maharani Ardi T. (CO) - XI-Layanan Kesehatan\n• Fasterino Rafael - XI-Rekayasa Perangkat Lunak\n• Queen Nathania H. - X-A Farmasi\n• M. Ilham H. - X-Desain Komunikasi Visual\n"
+            },
+            sekbid6: {
+                img: "https://via.placeholder.com/180x180/e74c3c/ffffff?text=Sekbid+6",
+                nama: "Sekbid 6 - Kebudayaan",
+                jabatan: "Seksi Bidang Kebudayaan",
+                bio: "• Elva Candraningtyas (CO) - XI-Layanan Kesehatan\n• Nayra Azzahra Ferizka P. - X-B Farmasi\n• Theresia Cordelia Lucita - X-Teknik Laboratorium Medik\n"
+            },
+            sekbid7: {
+                img: "https://via.placeholder.com/180x180/e74c3c/ffffff?text=Sekbid+7",
+                nama: "Sekbid 7 - Kewirausahaan",
+                jabatan: "Seksi Bidang Kewirausahaan",
+                bio: "• Riskyana Putri (CO) - XI-Layanan Kesehatan\n• Aurelia Thalita Izza S. - X-A Layanan Kesehatan\n• Hafidz Rifqi P.A - X-Rekayasa Perangkat Lunak\n"
+            }
+        };
+
+        
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+            return (rect.top <= windowHeight - 100 && rect.bottom >= 0);
+        }
+
+        
+        function handleScrollAnimation() {
+            const elements = document.querySelectorAll('.fade-scroll');
+            elements.forEach(element => {
+                if (isElementInViewport(element)) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Jalankan saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            handleScrollAnimation();
+        });
+
+        // Jalankan saat scroll
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            if (scrollTimeout) {
+                window.cancelAnimationFrame(scrollTimeout);
+            }
+            scrollTimeout = window.requestAnimationFrame(function() {
+                handleScrollAnimation();
+            });
+        });
+
+        // Fungsi modal
+        function showModal(id) {
+            const member = members[id];
+            if (member) {
+                document.getElementById('modalImage').src = member.img;
+                document.getElementById('modalTitle').textContent = member.nama;
+                document.getElementById('modalJabatan').textContent = member.jabatan;
+                document.getElementById('modalBio').textContent = member.bio;
+                document.getElementById('modalOverlay').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(event) {
+            if (event.target === document.getElementById('modalOverlay') || 
+                event.target.classList.contains('close-btn')) {
+                document.getElementById('modalOverlay').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Tutup modal dengan tombol ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.getElementById('modalOverlay').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+
+</body>
+</html>

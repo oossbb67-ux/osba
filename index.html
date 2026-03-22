@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OSS67</title>
+
+<style>
+:root {
+    --primary: #002a45;
+    --primary-darker: #001a2c; 
+    --primary-darkest: #000f1a;
+    --accent: #003f66;
+    --light: #ebf4ff;
+    --gray: #f5f5f5;
+    --white: #ffffff;
+    --overlay: rgba(0, 0, 0, 0.4);
+    --font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body  {
+        background: linear-gradient(135deg, var(--primary-darker) 0%, var(--primary-darkest) 50%, var(--accent) 100%);
+        min-height: 100vh;
+        position: relative;
+    }
+
+    /* OVERLAY UNTUK EFEK GELAP */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+
+nav, .hero, section, footer {
+    position: relative;
+    z-index: 1;
+}
+
+/* CONTAINER */
+.container {
+    max-width: 1300px;
+    margin: auto;
+    padding: 0 5%;
+}
+
+/* NAVBAR */
+nav {
+   
+    padding: 10px 10px;
+    
+}
+
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logoos img {
+    height: 50px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+nav a {
+    color: var(--light);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+nav a:hover {
+    opacity: 0.7;
+}
+
+/* HERO SECTION */
+.hero {
+    height: 100vh;
+    background: linear-gradient(var(--overlay), var(--overlay)), 
+                url("osss.jpeg") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    color: var(--white);
+    position: relative;
+    
+}
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 26, 44, 0) 0%,
+        rgba(0, 26, 44, 0.6) 40%,
+        var(--primary-darkest) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+
+.hero-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    width: 100%;
+}
+
+.hero-text {
+    max-width: 700px;
+}
+
+.hero-text h1 {
+    font-size: 80px;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    color: var(--white);
+}
+
+.hero-text h1 span {
+    color: var(--white);
+    display: block;
+    font-size: 50px;
+    font-weight: 300;
+    letter-spacing: 5px;
+    opacity: 0.9;
+}
+
+.hero-text p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    max-width: 600px;
+}
+
+/* STATS SECTION */
+.stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+.stats div {
+    text-align: left;
+}
+
+.stats strong {
+    font-size: 32px;
+    font-weight: 700;
+    display: block;
+    color: var(--white);
+    line-height: 1.2;
+}
+
+.stats span {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    color: var(--white);
+}
+
+/* BADGE / TAGLINE */
+.hero-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--white);
+    padding: 8px 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    border-radius: 30px;
+    font-size: 14px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .hero-text h1 {
+        font-size: 50px;
+    }
+
+    .hero-text h1 span {
+        font-size: 30px;
+    }
+
+    .stats {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .hero-wrapper {
+        padding: 0 20px;
+    }
+}
+
+/* SECTION */
+section {
+    padding: 70px 0;
+}
+
+section h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 32px;
+    color: var(--white);
+}
+
+/* CARDS */
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 260px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    transition: 0.3s ease;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card h3 {
+    color: var(--primary);
+}
+
+/* STEPS */
+.steps {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+    font-size: 18px;
+}
+
+.steps-list {
+    flex: 1;
+    min-width: 280px;
+}
+
+.steps-list li {
+    margin-bottom: 15px;
+    list-style: none;
+    color: var(--white);
+}
+
+.steps-image {
+    flex: 1;
+    min-width: 280px;
+    text-align: center;
+}
+
+.steps-image img {
+    width: 250px;
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+
+.program {
+    background: var(--primary);
+    color: white;
+}
+
+.program .card {
+    background: #0b3a5a;
+    color: white;
+}
+
+/* pooter */
+footer {
+    text-align: center;
+    padding: 30px 0;
+    background: #001b2d;
+    color: white;
+    font-size: 14px;
+}
+
+.social {
+  padding: 17px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  border: 0;
+  background-color: white;
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  color: var(--primary);
+  transition: all 0.5s ease;
+  display: inline-block;
+}
+
+.social a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.social:hover {
+  background-color: var(--primary);
+  color: white;
+  box-shadow: var(--primary);
+}
+
+.social:hover a {
+    color: white;
+}
+
+.social:active {
+  letter-spacing: 3px;
+  background-color: var(--primary);
+  color: white;
+  box-shadow: var(--primary);
+  transform: translateY(10px);
+  transition: 100ms;
+}
+
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.fade-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+section h2.fade-scroll,
+.cards .card.fade-scroll,
+.steps-list li.fade-scroll,
+.steps-image.fade-scroll,
+.social.fade-scroll,
+footer.fade-scroll {
+    will-change: opacity, transform;
+}
+</style>
+</head>
+
+<body>
+
+<!-- navbar -->
+<nav>
+    <div class="container nav-wrapper">
+        <div class="logoos">
+            <img src="LOGO OSS67.png" alt="Logo OSS67">
+        </div>
+
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="ossabout.html">About</a></li>
+            <li><a href="osssaran.html">Kritik & Saran</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- sg iku -->
+<div class="hero">
+    <div class="container hero-wrapper">
+        <div class="hero-text">
+            <h1>OSSBHAKTA</h1>
+            <p>
+                OSSBHAKTA merupakan Organisasi Siswa Intra Sekolah 
+                SMK Kesehatan Bhakti Wiyata dan <br>SMK TI Pelita Nusantara 
+                yang aktif, disiplin, serta adaptif terhadap perkembangan teknologi.
+            </p>
+
+            <div class="stats">
+                <div><strong>7</strong><br>Sekbid</div>
+                <div><strong>30</strong><br>Anggota</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- visi misi-->
+<section>
+    <div class="container">
+        <h2 class="fade-scroll">Visi & Misi</h2>
+        <div class="cards">
+            <div class="card fade-scroll">
+                <h3>Visi</h3>
+                <p>Mewujudkan OSIS sebagai organisasi yang aktif, disiplin, dan adaptif terhadap perkembangan teknologi.</p>
+            </div>
+            <div class="card fade-scroll">
+                <h3>Misi 1</h3>
+                <p>Menggunakan teknologi yang relevan di era digital.</p>
+            </div>
+            <div class="card fade-scroll">
+                <h3>Misi 2</h3>
+                <p>Menciptakan budaya disiplin dimulai dari pengurus OSIS itu sendiri.</p>
+            </div>
+            <div class="card fade-scroll">
+                <h3>Misi 3</h3>
+                <p>Membangun solidaritas dan kerja sama antara pengurus dan warga sekolah.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- alur -->
+<section>
+    <div class="container">
+        <h2 class="fade-scroll">Alur Kegiatan OSIS</h2>
+        <div class="steps">
+            <ul class="steps-list">
+                <li class="fade-scroll">✔ Perencanaan Program Kerja</li>
+                <li class="fade-scroll">✔ Pelaksanaan & Koordinasi</li>
+                <li class="fade-scroll">✔ Evaluasi dan Pengembangan</li>
+            </ul>
+
+            <div class="steps-image fade-scroll">
+                <img src="https://via.placeholder.com/250" alt="osis">
+            </div>
+        </div>
+
+        <!-- medsos -->
+        <div style="text-align: center; margin-top: 30px;" class="fade-scroll">
+            <div class="social">
+                <a href="https://www.instagram.com/oss_bhakta/">Instagram OSIS</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="fade-scroll">
+    OSS67 © 2026/2027
+</footer>
+
+<!-- SCROLL ANIMATION SCRIPT -->
+<script>
+    
+    function isElementInViewport(el) {
+        var rect = el.getBoundingClientRect();
+        var windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        
+      
+        return (
+            rect.top <= windowHeight - 150 && rect.bottom >= 0
+        );
+    }
+
+    // Function to handle scroll animation
+    function handleScrollAnimation() {
+        var elements = document.querySelectorAll('.fade-scroll');
+        for (var i = 0; i < elements.length; i++) {
+            if (isElementInViewport(elements[i])) {
+                elements[i].classList.add('visible');
+            }
+        }
+    }
+
+    // Run on initial load
+    document.addEventListener('DOMContentLoaded', function() {
+        handleScrollAnimation();
+    });
+
+    // Run on scroll with throttling for performance
+    var scrollTimeout;
+    window.addEventListener('scroll', function() {
+        if (scrollTimeout) {
+            window.cancelAnimationFrame(scrollTimeout);
+        }
+        scrollTimeout = window.requestAnimationFrame(function() {
+            handleScrollAnimation();
+        });
+    });
+
+    // Also run on resize
+    var resizeTimeout;
+    window.addEventListener('resize', function() {
+        if (resizeTimeout) {
+            clearTimeout(resizeTimeout);
+        }
+        resizeTimeout = setTimeout(function() {
+            handleScrollAnimation();
+        }, 100);
+    });
+</script>
+
+</body>
+</html>
